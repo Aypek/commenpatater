@@ -62,10 +62,10 @@ namespace commenpatater_api.Controllers
                 return BadRequest("Comment required");
             }
 
-            var result = await _commentContext.Comments.AddAsync(comment);
+            await _commentContext.Comments.AddAsync(comment);
             await _commentContext.SaveChangesAsync();
 
-            return Ok(result);
+            return Ok(comment.Id);
         }
 
     }
