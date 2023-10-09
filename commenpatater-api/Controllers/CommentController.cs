@@ -3,6 +3,7 @@ using commenpatater_api.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Net;
 
 namespace commenpatater_api.Controllers
 {
@@ -47,7 +48,11 @@ namespace commenpatater_api.Controllers
             }
             else { return BadRequest(); }
         }
-
+        /// <summary>
+        ///  Creates a new comment
+        /// </summary>
+        /// <param name="comment">Represents a name, email, and comment text.</param>
+        /// <returns>URI of the created comment and the created comment object</returns>
         [HttpPost]
         [Route("comments/create")]
         public async Task<IActionResult> CreateComment(Comment comment)
@@ -66,6 +71,25 @@ namespace commenpatater_api.Controllers
             await _commentContext.SaveChangesAsync();
 
             return Created($"/comments/{comment.Id}", comment);
+        }
+
+        [HttpDelete]
+        [Route("comment/delete/{id}")]
+        public async Task<IActionResult> DeleteCommentById(int id)
+        {
+            
+            var comment = await _commentContext.Comments.FindAsync(id);
+
+            if (comment == null)
+            {
+                return BadRequest("Comment does not exist!");
+            }
+
+            _commentContext.Comments.Remove(comment);
+            await _commentContext.SaveChangesAsync();
+
+            return NoContent();
+
         }
 
     }
