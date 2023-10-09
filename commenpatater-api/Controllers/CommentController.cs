@@ -57,7 +57,7 @@ namespace commenpatater_api.Controllers
                 return BadRequest();
             }
 
-            if(String.IsNullOrEmpty(comment.CommentText))
+            if(string.IsNullOrEmpty(comment.CommentText))
             {
                 return BadRequest("Comment required");
             }
@@ -65,7 +65,7 @@ namespace commenpatater_api.Controllers
             await _commentContext.Comments.AddAsync(comment);
             await _commentContext.SaveChangesAsync();
 
-            return Ok(comment.Id);
+            return Created($"/comments/{comment.Id}", comment);
         }
 
     }
