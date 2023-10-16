@@ -6,6 +6,14 @@ namespace commenpatater_web.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IConfiguration _configuration;
+        private readonly IHttpClientFactory _httpClientFactory;
+
+        public HomeController(IConfiguration configuration, IHttpClientFactory httpClientFactory)
+        {
+            _configuration = configuration;
+            _httpClientFactory = httpClientFactory;
+        }
 
         public IActionResult Index()
         {

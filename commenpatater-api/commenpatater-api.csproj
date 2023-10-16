@@ -14,4 +14,8 @@
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.5.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\commenpatater-core\commenpatater-core.csproj" />
+  </ItemGroup>
+
 </Project>

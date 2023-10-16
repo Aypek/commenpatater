@@ -1,4 +1,4 @@
-﻿using commenpatater_api.Models;
+﻿using commenpatater_core.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace commenpatater_api.Data.Contexts
