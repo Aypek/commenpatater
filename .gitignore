@@ -363,3 +363,4 @@ MigrationBackup/
 FodyWeavers.xsd
 commenpatater-api/appsettings.Development.json
 /commenpatater-api/appsettings.Development.json
+/commenpatater-web/appsettings.Development.json
