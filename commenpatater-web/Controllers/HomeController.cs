@@ -1,6 +1,10 @@
-﻿using commenpatater_web.Models;
+﻿using commenpatater_core.Models;
+using commenpatater_web.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Diagnostics;
+using System.Net.Http.Headers;
 
 namespace commenpatater_web.Controllers
 {
@@ -15,11 +19,24 @@ namespace commenpatater_web.Controllers
             _httpClientFactory = httpClientFactory;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
-        }
+            var httpClient = _httpClientFactory.CreateClient();
+            httpClient.BaseAddress = new Uri(_configuration.GetValue<string>("ApiBaseUri"));
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
+            var url = $"api/v1/comments";
+
+            var httpResponseMessage = await httpClient.GetAsync(url);
+            var httpResponseContent = await httpResponseMessage.Content.ReadAsStringAsync();
+
+            
+            var commentsViewModel = new CommentsViewModel();
+            commentsViewModel.Comments = JsonConvert.DeserializeObject<List<Comment>>(httpResponseContent);
+
+            return View(commentsViewModel);
+        }
+        
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

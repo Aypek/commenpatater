@@ -11,7 +11,7 @@ namespace commenpatater_core.Models
         public int Id { get; set; }
         public string? User { get; set; }
         public string? CommentText { get; set; }
-        public string? email { get; set; }
+        public string? Email { get; set; }
 
     }
 
